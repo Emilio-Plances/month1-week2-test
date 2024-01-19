@@ -106,10 +106,11 @@ public class Archivio {
 
         });
     }
-    public void importa() throws IOException{
+    /*public void importa() throws IOException{
         File archivioFile=new File("archivio/archivio.txt");
         String stringaContenuti =  FileUtils.readFileToString(archivioFile, Charset.defaultCharset());
         String[] contenuti=stringaContenuti.split("#");
+        if (contenuti.length==0) return;
         Arrays.stream(contenuti).forEach(c->{
             String[] cont=c.split("@");
             if(cont[4].equals("Libro")) {
@@ -127,6 +128,6 @@ public class Archivio {
                 );
             }
         });
-    }
+    }*/
 
 }
