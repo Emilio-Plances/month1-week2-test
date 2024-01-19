@@ -20,11 +20,9 @@ public class Rivista extends Contenuto {
                 ", periodicità=" + periodicita+"\n";
     }
 
-    public static List<Periodicita> convertToPeriodicita(String[] arr){
-        return Arrays.stream(arr).map(el->{
-            if(el.equals("SETTIMANALE")) return Periodicita.SETTIMANALE;
-            if(el.equals("MENSILE")) return Periodicita.MENSILE;
-            return Periodicita.SEMESTRALE;
-        }).toList();
+    public static Periodicita convertToPeriodicita(String s){
+        if(s.equals("SETTIMANALE")) return Periodicita.SETTIMANALE;
+        if(s.equals("MENSILE")) return Periodicita.MENSILE;
+        return Periodicita.SEMESTRALE;
     }
 }

@@ -11,35 +11,23 @@ import java.util.stream.Collectors;
 
 public class Archivio {
     private List<Contenuto> contenuto=new ArrayList<>();
-    private List<Libro> libri=new ArrayList<>();
-    private List<Rivista> riviste=new ArrayList<>();
     private Random random=new Random();
     public Archivio(){}
     public void aggiungiLibro(String titolo, int anno, int pagine,String autore,Genere ...generi){
         long ISBN=generaISBN();
-        Libro l=new Libro(ISBN,titolo,anno,pagine,autore, generi);
-        contenuto.add(l);
-        libri.add(l);
+        contenuto.add(new Libro(ISBN,titolo,anno,pagine,autore, generi));
         System.out.println("Libro aggiunto");
     }
     public void aggiungiLibro(long ISBN,String titolo, int anno, int pagine,String autore,Genere ...generi){
-        Libro l=new Libro(ISBN,titolo,anno,pagine,autore, generi);
-        contenuto.add(l);
-        libri.add(l);
-        System.out.println("Libro aggiunto");
+        contenuto.add(new Libro(ISBN,titolo,anno,pagine,autore, generi));
     }
     public void aggiungiRivista(String titolo, int anno, int pagine,Periodicita periodicita){
         long ISBN=generaISBN();
-        Rivista r=new Rivista(ISBN,titolo,anno,pagine,periodicita);
-        riviste.add(r);
-        contenuto.add(r);
+        contenuto.add(new Rivista(ISBN,titolo,anno,pagine,periodicita));
         System.out.println("Rivista aggiunta");
     }
     public void aggiungiRivista(long ISBN, String titolo, int anno, int pagine,Periodicita periodicita){
-        Rivista r=new Rivista(ISBN,titolo,anno,pagine,periodicita);
-        riviste.add(r);
-        contenuto.add(r);
-        System.out.println("Rivista aggiunta");
+        contenuto.add(new Rivista(ISBN,titolo,anno,pagine,periodicita));
     }
 
     public long generaISBN(){
@@ -51,12 +39,6 @@ public class Archivio {
         return ISBN;
     }
 
-    public List<Libro> getLibri() {
-        return libri;
-    }
-    public List<Rivista> getRiviste() {
-        return riviste;
-    }
     public String cercaTramiteISBN (long ISBN){
         List<Contenuto> search=contenuto.stream().filter(el->el.getCodiceISBN()==ISBN).toList();
         if(!search.isEmpty())
@@ -87,13 +69,14 @@ public class Archivio {
                 String s= c.getCodiceISBN()+
                         "@"+c.getTitolo()+
                         "@"+c.getPagine()+
-                        "@"+c.getAnno()+
-                        "@";
+                        "@"+c.getAnno();
                 if(el instanceof Libro l){
-                    s+="Libro@"+l.getAutore()+
-                            "@"+l.getGeneri();
+                    s+="@Libro"+
+                        "@"+l.getAutore()+
+                        "@"+l.getGeneri();
                 } else if (el instanceof Rivista r) {
-                    s+="Rivista@"+r.getPeriodicita();
+                    s+="@Rivista"+
+                       "@"+r.getPeriodicita();
                 }
                 return s;
             }).collect(Collectors.joining("#"));
@@ -106,7 +89,7 @@ public class Archivio {
 
         });
     }
-    /*public void importa() throws IOException{
+    public void importa() throws IOException{
         File archivioFile=new File("archivio/archivio.txt");
         String stringaContenuti =  FileUtils.readFileToString(archivioFile, Charset.defaultCharset());
         String[] contenuti=stringaContenuti.split("#");
@@ -126,8 +109,16 @@ public class Archivio {
                         cont[5],
                         array
                 );
+            }else{
+                aggiungiRivista(
+                        Long.parseLong(cont[0]),
+                        cont[1],
+                        Integer.parseInt(cont[2]),
+                        Integer.parseInt(cont[3]),
+                        Rivista.convertToPeriodicita(cont[5])
+                );
             }
         });
-    }*/
+    }
 
 }
