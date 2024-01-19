@@ -1,6 +1,6 @@
 package org.example.Test;
 
-public enum Periodicità {
+public enum Periodicita {
     SETTIMANALE,
     MENSILE,
     SEMESTRALE
