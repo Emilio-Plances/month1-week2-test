@@ -19,7 +19,6 @@ public class Rivista extends Contenuto {
         return super.toString()+
                 ", periodicità=" + periodicita+"\n";
     }
-
     public static Periodicita convertToPeriodicita(String s){
         if(s.equals("SETTIMANALE")) return Periodicita.SETTIMANALE;
         if(s.equals("MENSILE")) return Periodicita.MENSILE;
