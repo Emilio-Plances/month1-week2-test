@@ -17,13 +17,13 @@ public class Archivio {
     public Archivio(){}
     public void aggiungiLibro(String titolo, int anno, int pagine,String autore,Genere ...generi){
         long ISBN=generaISBN();
-        Libro l=new Libro(ISBN,titolo,anno,pagine,autore,generi);
+        Libro l=new Libro(ISBN,titolo,anno,pagine,autore, generi);
         contenuto.add(l);
         libri.add(l);
         System.out.println("Libro aggiunto");
     }
     public void aggiungiLibro(long ISBN,String titolo, int anno, int pagine,String autore,Genere ...generi){
-        Libro l=new Libro(ISBN,titolo,anno,pagine,autore,generi);
+        Libro l=new Libro(ISBN,titolo,anno,pagine,autore, generi);
         contenuto.add(l);
         libri.add(l);
         System.out.println("Libro aggiunto");
@@ -106,25 +106,27 @@ public class Archivio {
 
         });
     }
-    /*public void importa() throws IOException{
+    public void importa() throws IOException{
         File archivioFile=new File("archivio/archivio.txt");
         String stringaContenuti =  FileUtils.readFileToString(archivioFile, Charset.defaultCharset());
         String[] contenuti=stringaContenuti.split("#");
-        contenuto=Arrays.stream(contenuti).map(c->{
+        Arrays.stream(contenuti).forEach(c->{
             String[] cont=c.split("@");
-            if(cont[4].equals("Libro"))
-               cont[6]=cont[6].substring(1,cont[6].length()-1);
-                String[] generi=cont[6].split(", ");
-                List<Genere> g=Libro.convertToGenere(generi);
-
-                return new Libro(
+            if(cont[4].equals("Libro")) {
+                cont[6] = cont[6].substring(1, cont[6].length() - 1);
+                String[] generi = cont[6].split(", ");
+                List<Genere> g = Libro.convertToGenere(generi);
+                Genere[] array = g.toArray(new Genere[g.size()]);
+                aggiungiLibro(
                         Long.parseLong(cont[0]),
                         cont[1],
-                        cont[2],
+                        Integer.parseInt(cont[2]),
                         Integer.parseInt(cont[3]),
                         cont[5],
-                        g.toArray());
+                        array
+                );
+            }
         });
-    }*/
+    }
 
 }

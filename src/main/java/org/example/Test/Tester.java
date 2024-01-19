@@ -5,12 +5,13 @@ import java.io.IOException;
 public class Tester {
     public static void main(String[] args) {
         Archivio a=new Archivio();
+        try{
+            a.importa();
+        }catch(IOException ex){
+            System.out.println(ex.getMessage());
+        }
 
-        a.aggiungiLibro("Harry Potter e i doni della morte",2018,369,"J.K.Rowling",Genere.HORROR);
-        a.aggiungiLibro("Harry Potter e la pietra filosofale",2000,369,"J.K.Rowling",
-                Genere.FANTASCIENZA,Genere.HORROR);
-
-        a.aggiungiRivista("Cioè",2024,20,Periodicita.SETTIMANALE);
+        System.out.println(a.cercaTramiteISBN(50806));
 
         try{
             a.export();

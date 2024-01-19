@@ -7,10 +7,10 @@ import java.util.List;
 public class Libro extends Contenuto {
     private String autore;
     private List<Genere> generi=new ArrayList<>();
-    public Libro(long codiceISBN, String titolo, int anno, int pagine, String autore,Genere ...generi) {
+    public Libro(long codiceISBN, String titolo, int anno, int pagine, String autore,Genere[] generi) {
         super(codiceISBN, titolo, anno, pagine);
         this.autore=autore;
-        Arrays.stream(generi).forEach(el->this.generi.add(el));
+        this.generi.addAll(Arrays.asList(generi));
     }
 
     public String getAutore() {
